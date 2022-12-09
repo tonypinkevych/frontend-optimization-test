@@ -1,7 +1,7 @@
 import Head from "next/head";
 import classnames from "classnames";
 import * as React from "react";
-import { heavyCalculation } from "./utils";
+import { heavyCalculation } from "../src/utils";
 
 const CYCLES = 100_000_000;
 const MAX_ITEMS_COUNT = 100;
