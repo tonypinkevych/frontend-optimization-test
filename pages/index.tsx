@@ -1,21 +1,11 @@
 import Head from "next/head";
 import classnames from "classnames";
 import * as React from "react";
+import { heavyCalculation } from "./utils";
 
-const MAX_COUNT = 100;
-
-// @NOTE: just heave computation, you can ignore it
-async function heavyCalculation(n: number): Promise<number> {
-  const start = new Date().getTime();
-
-  let result = 0;
-  for (let i = 0; i < n; i++) {
-    result += i * i;
-  }
-  const end = new Date().getTime();
-  console.log("CALCULATION TAKES MS", end - start);
-  return Promise.resolve(result);
-}
+const CYCLES = 100_000_000;
+const MAX_ITEMS_COUNT = 100;
+let totalCalls = 0;
 
 export default function Home() {
   const [rows, setRows] = React.useState<number[]>([]);
@@ -26,10 +16,10 @@ export default function Home() {
       console.log("---- START");
       setIsCalculating(true);
 
-      await heavyCalculation(100_000_000);
+      await heavyCalculation(CYCLES);
 
       setRows((_rows) => {
-        if (_rows.length >= MAX_COUNT) {
+        if (_rows.length >= MAX_ITEMS_COUNT) {
           return _rows;
         }
 
@@ -37,7 +27,8 @@ export default function Home() {
       });
 
       setIsCalculating(false);
-      console.log("---- END");
+      totalCalls += 1;
+      console.log(`---- END. Total calls: ${totalCalls}`);
     }, 100);
   }, []);
 
