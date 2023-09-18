@@ -47,7 +47,7 @@ export default function Home() {
           className="transition-all duration-150 cubic-bezier(0.5, 0.35, 0.15, 1) text-center"
           style={{
             // @TODO: blinking should work
-            opacity: isCalculating ? 0 : 100,
+            opacity: isCalculating ? 100 : 0,
           }}
         >
           Calculating...
